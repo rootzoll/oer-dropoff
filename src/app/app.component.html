@@ -1,0 +1,115 @@
+<!-- Fixed Header -->
+
+<div>
+
+  <div style="text-align:center">
+    <h1 style="margin-bottom:10px;">
+      OER Drop Off Service
+    </h1>
+  </div>
+
+  <div style="font-style: italic; color: grey;">
+    Upload open education content you created and<br>let us care about the rest to share it with the world.
+  </div>
+
+</div>
+
+<!-- Basic Upload Section -->
+
+<div ng2FileDrop *ngIf="step<=3" class="custom-component-drop-zone"
+     [ng2FileDropAcceptMultiple]="false"
+     (ng2FileDropFileAccepted)="dragFileAccepted($event)"
+     (ng2FileDropFileRejected)="dragFileRejected($event)"
+     style="
+    background-image: url('assets/counter.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  "
+>
+
+  <div *ngIf="step==1"  (click)="manualFileSelect.click()">
+
+    <input id="manualFileSelect" type="file" (change)="manualChooseFile($event)" style="visibility:hidden" #manualFileSelect /><br>
+    <button md-raised-button  color="primary" style="margin-top: 152px;opacity: 0.95;">Choose File</button>
+    <div style="
+    font-style: italic;
+    margin-top: 15px;
+    background-color:#646660;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+    font-size: 74%;
+    padding:3px;
+    ">.. or drag &amp; drop file here ..</div>
+  </div>
+
+  <div *ngIf="step==2">
+    <img src="assets/case.png" style="width: 100%; max-width: 150px; margin-top: 125px;">
+    <div style="
+    margin-top: -7px;
+    background-color: #646660;
+    color: white;
+    padding: 3px;
+    font-size: 80%;
+    ">
+      {{uploadFileName}}
+    </div>
+    <md-progress-bar
+      class="example-margin"
+      style="width: 250px; 
+      margin-left:auto; margin-right: auto;
+      margin-top: -65px"
+      [style.opacity]="(uploadProgress==-1) ? 0 : 1"
+      [value]="uploadProgress"
+      [mode]="uploadMode">
+    </md-progress-bar>
+  </div>
+
+<!-- Thanks -->
+
+<div *ngIf="step==3">
+    <img src="assets/thanks.png" style="width: 100%; max-width: 180px; margin-top: 45px;">
+    <div style="
+    margin-top: -7px;
+    background-color: #646660;
+    color: white;
+    padding: 3px;
+    font-size: 80%;
+    ">
+      Thanks :D We will take care from here.
+    </div>
+  </div>
+</div>
+
+<div *ngIf="step==2" style="margin: 16px; width: 355px; margin-left:auto; margin-right: auto; text-align: left;">
+  <div style="margin-bottom: 8px;">
+    <md-checkbox 
+    class="example-margin" 
+    style="transition: opacity 500ms linear;    margin-left: 22px;"
+    [style.opacity]="opacityCheck1"
+    [(ngModel)]="legalCheckboxOne"> 
+      <div class="legalMain">No Copyright Infrigement</div>
+      <div class="legalSub">To the best of my knowledge all used material of<br>this content is Public Domain or created by me.</div>
+    </md-checkbox>
+  </div>
+  <div>
+    <md-checkbox 
+    class="example-margin" 
+    style="transition: opacity 500ms linear;    margin-left: 22px;"
+    [style.opacity]="opacityCheck2"
+    [(ngModel)]="legalCheckboxTwo"> 
+    <div class="legalMain">Free to Use</div>
+    <div class="legalSub">I commission anybody to publish this creation<br>under any open and free license.</div>
+    </md-checkbox>
+  </div>
+
+  <button md-raised-button [disabled]="(uploadProgress>=0)" (click)="buttonDropIt()" color="primary" style="margin-top: 16px; width: 100%">Drop it</button>
+</div>
+
+<button *ngIf="step==3" md-raised-button (click)="buttonReset()" color="primary" style="margin-top: 7px;
+width: 355px;">Drop-Off another File</button>
+
+
+<div *ngIf="step==1" style="color:#c7c7c7; font-size: 50%;">
+    Prototype for edu-sharing OER Hackathon 2018.
+  </div>
